@@ -2,5 +2,5 @@
 dataFileList = dir([pwd,'/data']);
 dataFileNameList = {dataFileList.name};
 %%
-dataFileName = dataFileNameList{3};
+dataFileName = [pwd,'/data/',dataFileNameList{82}];
 data = interpAmmeterData(dataFileName);

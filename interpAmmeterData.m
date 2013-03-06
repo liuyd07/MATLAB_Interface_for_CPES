@@ -25,6 +25,8 @@ function dataCluster = getCluster(str)
     dataCluster.property = data{2};
     dataCluster.value = str2double(data{3});
     dataCluster.address = data{4};
+    dataCluster.time = data{5};
+    dataCluster.unit = data{6};
 
 function data = separateStr(str)
     ix = 1;
