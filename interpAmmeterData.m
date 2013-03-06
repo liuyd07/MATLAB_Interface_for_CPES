@@ -21,12 +21,15 @@ end
 function dataCluster = getCluster(str)
     data = separateStr(str);
 
-    dataCluster.action = data{1};
-    dataCluster.property = data{2};
-    dataCluster.value = str2double(data{3});
-    dataCluster.address = data{4};
-    dataCluster.time = data{5};
-    dataCluster.unit = data{6};
+    try
+        dataCluster.action = data{1};
+        dataCluster.property = data{2};
+        dataCluster.value = str2double(data{3});
+        dataCluster.address = data{4};
+        dataCluster.time = data{5};
+        dataCluster.unit = data{6};
+    catch
+    end
 
 function data = separateStr(str)
     ix = 1;
