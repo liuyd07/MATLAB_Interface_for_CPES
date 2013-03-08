@@ -4,11 +4,11 @@ function [ ammeterData ] = interpAmmeterData( dataFilename )
 
 % check if empty
 finfo = dir(dataFilename);
-fsize = finfo.bytes;
-assert(fsize>0,'File is empty');
+assert(finfo.bytes>0,'File is empty');
 
 fid = fopen(dataFilename);
-% regulate data, data structure only follows action, property, value, address
+% regulate data, data structure order follows action, property, value,
+% address, time, unit.
 % data structure can be changed.
 tline = fgetl(fid);
 ix = 1;
@@ -28,14 +28,21 @@ function dataCluster = getCluster(str)
         dataCluster.address = data{4};
         dataCluster.time = data{5};
         dataCluster.unit = data{6};
-    catch
+    catch e
+        return;
     end
 
 function data = separateStr(str)
     ix = 1;
-    remain = str;
+    remain = regulateString(str);
     while(~isempty(remain))
-        [token, remain] = strtok(remain,0);
+        [token, remain] = strtok(remain,' ');
         data{ix} = token;
         ix = ix + 1;
     end
+    
+function regStr = regulateString(str)
+    charNum = uint16(str);
+    charNum(charNum < 32) = 32;
+    regStr = char(charNum);
+    
